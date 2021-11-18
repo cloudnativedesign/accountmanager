@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package domain;
+
+option go_package = "accountmanager/internal/gRPC/domain";
+
+
+enum Provider {
+    LINKEDIN = 0;
+    TWITTER = 1;
+    FACEBOOK = 2;
+    REDDIT = 3;
+}
+
+
+
+
+
+ 
+
