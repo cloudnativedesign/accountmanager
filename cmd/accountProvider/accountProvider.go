@@ -31,6 +31,8 @@ func NewAccountManager() accountManager {
 	return accountManager{}
 }
 
+// This is testing if i am getting a documentation auto generated if i put
+// a couple fo commented lines on top of my function definition
 func (a *accountManager) AddAccount(providerType string, accountInput UserID) *accountManager {
 	// Assume the following is available correctly
 	var provider accountProvider
