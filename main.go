@@ -1,6 +1,8 @@
 package main
 
-import "github.com/cloudnativedesign/accountmanager/accountProvider"
+import (
+	"github.com/cloudnativedesign/accountmanager/accountProvider"
+)
 
 func main() {
 	// Create a common account manager object
