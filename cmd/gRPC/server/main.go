@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	netListener := getNetListener(7010)
+	netListener := getNetListener(50051)
 
 	accountServiceImpl := impl.NewAccountServiceGrpcImpl()
 	var opts []grpc.ServerOption
@@ -32,6 +32,6 @@ func getNetListener(port uint) net.Listener {
 		log.Fatalf("failed to listen: %v", err)
 		panic(fmt.Sprintf("failed to listen: %v", err))
 	}
-
+	log.Printf("Server started. Listening on %d", 50051)
 	return lis
 }
