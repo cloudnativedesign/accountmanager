@@ -1,21 +1,37 @@
 package main
 
 import (
-	"github.com/cloudnativedesign/accountmanager/cmd/accountProvider"
+	"fmt"
+	"log"
+	"net"
+
+	"github.com/cloudnativedesign/accountmanager/internal/gRPC/impl"
+	"github.com/cloudnativedesign/accountmanager/internal/gRPC/service"
+	"google.golang.org/grpc"
 )
 
 func main() {
-	// Create a common account manager object
-	accounts := accountProvider.NewAccountManager()
+	netListener := getNetListener(7010)
 
-	// Link the social media accounts available
-	accounts.AddAccount("linkedin", accountProvider.UserID{
-		Username: "frank@thewinklerway.com",
-		Password: "alksdjf@Q%#@%",
-	})
+	accountServiceImpl := impl.NewAccountServiceGrpcImpl()
+	var opts []grpc.ServerOption
 
-	// Authenticate all accounts
-	accounts.AuthenticateAll()
+	grpcServer := grpc.NewServer(opts...)
+	service.RegisterAccountServiceServer(grpcServer, accountServiceImpl)
 
-	// Check out
+	// Start the server
+	if err := grpcServer.Serve(netListener); err != nil {
+		log.Fatalf("failed to serve: %s", err)
+	}
+
+}
+
+func getNetListener(port uint) net.Listener {
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+		panic(fmt.Sprintf("failed to listen: %v", err))
+	}
+
+	return lis
 }

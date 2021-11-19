@@ -5,9 +5,17 @@ package domain;
 option go_package = "internal/gRPC/domain";
 
 
+enum Provider {
+    LINKEDIN = 0;
+    TWITTER = 1;
+    FACEBOOK = 2;
+    REDDIT = 3;
+}
+
 message Account {
     int64 id = 1;
-    string name
+    string name = 2;
+    Provider provider = 3;
 }
 
 
